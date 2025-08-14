@@ -36,6 +36,7 @@ function Home() {
   return (
     <button
       type="button"
+      className="bg-blue-500 text-white p-2 rounded-md"
       onClick={() => {
         updateCount({ data: 1 }).then(() => {
           router.invalidate()
