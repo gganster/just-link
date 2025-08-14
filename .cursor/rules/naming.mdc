@@ -1,7 +1,7 @@
 ---
 description: 
 globs: 
-alwaysApply: false
+alwaysApply: true
 ---
 ## Context
 - Apply these naming conventions to all code elements including files, folders, functions, classes, interfaces, types, enums, etc.

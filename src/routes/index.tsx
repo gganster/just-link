@@ -1,28 +1,28 @@
 // src/routes/index.tsx
-import * as fs from 'node:fs'
 import { createFileRoute, useRouter } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start'
 import { Button } from '@/components/ui/button'
+import { PrismaClient } from '@prisma-app/client'
 
-const filePath = 'count.txt'
-
-async function readCount() {
-  return parseInt(
-    await fs.promises.readFile(filePath, 'utf-8').catch(() => '0'),
-  )
-}
+const prisma = new PrismaClient()
 
 const getCount = createServerFn({
   method: 'GET',
-}).handler(() => {
-  return readCount()
+}).handler(async () => {
+  const countRecord = await prisma.count.findUnique({
+    where: { id: 1 }
+  })
+  return countRecord?.count ?? 0
 })
 
 const updateCount = createServerFn({ method: 'POST' })
   .validator((d: number) => d)
   .handler(async ({ data }) => {
-    const count = await readCount()
-    await fs.promises.writeFile(filePath, `${count + data}`)
+    await prisma.count.upsert({
+      where: { id: 1 },
+      update: { count: { increment: data } },
+      create: { id: 1, count: data }
+    })
   })
 
 export const Route = createFileRoute('/')({
