@@ -1,0 +1,15 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+## Context
+
+* We use Shadcn/UI to style our application.
+
+## Rules
+
+- You must use Shadcn UI for components.
+- You must use Tailwind CSS for styling (only if necessary on top of shadcn).
+
+- You must install any ShadcnUI missing component with `pnpm dlx shadcn@canary add <component-name />`

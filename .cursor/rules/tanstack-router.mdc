@@ -1,0 +1,71 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+## context
+* The project use tanstack/router with tanstack/start in SPA mode
+
+## Rules
+
+### `src/routes/[...]/route.tsx`
+- **Type** : Route déclarative
+- **Objectif** : Définir une route via `createFileRoute`
+- **Imports requis** : `Route`, `createFileRoute`
+- **Bonnes pratiques** :
+  - Toujours exporter `Component`.
+  - Inclure les `loader` et `action` si besoin.
+  - Garder ce fichier simple et dédié à la définition de la route.
+
+---
+
+### `src/routes/[...]/layout.tsx`
+- **Type** : Layout de route
+- **Objectif** : Layout partagé entre enfants
+- **Exports requis** : `Component`
+- **Bonnes pratiques** :
+  - Gérer uniquement la structure UI (header, footer, etc.)
+  - Pas de logique métier ici
+
+---
+
+### `src/components/` ou `src/components/ui/`
+- **Type** : Composants réutilisables
+- **Objectif** : UI atomique ou composable
+- **Bonnes pratiques** :
+  - Fonctionnels, typés, découplés du routing
+  - Props explicites et bien typées
+  - Noms de fichiers en PascalCase ou kebab-case (selon convention d’équipe)
+
+---
+
+### `src/lib/`
+- **Type** : Fonctions utilitaires, hooks, helpers métier
+- **Objectif** : Centraliser la logique métier ou les utilitaires
+- **Bonnes pratiques** :
+  - Fichiers en kebab-case
+  - Exporte uniquement des fonctions pures ou hooks
+  - N’utilise jamais de `JSX` ici
+
+---
+
+### `src/router.ts`
+- **Type** : Déclaration centralisée du routeur (si pas full file-routing)
+- **Imports requis** : `createRouter`, `createRootRoute`
+- **Exports requis** : `router`
+- **Bonnes pratiques** :
+  - Déclare la structure racine
+  - Ajoute les hooks globaux (`onLoad`, `onError`, etc.)
+  - Évite d’y inclure les routes si tu utilises `createFileRoute`
+
+---
+
+### `src/app.tsx`
+- **Type** : Point d’entrée principal de l’app
+- **Objectif** : Initialiser le routeur et les providers
+- **Imports requis** : `RouterProvider`
+- **Bonnes pratiques** :
+  - Ne contient que le `RouterProvider` et les providers globaux (auth, theme, query client)
+
+
+  - Aucune logique métier ici

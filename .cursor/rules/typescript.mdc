@@ -1,0 +1,15 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+---
+description: Use typescript
+globs: 
+---
+
+## typescript-usage
+- Use TypeScript for all code; prefer types over interfaces.
+- Avoid enums; use maps instead.
+
+- Use functional components with TypeScript types.
